@@ -1,0 +1,30 @@
+@use "src/styles/mixins/element";
+
+.Tab {
+  flex-shrink: 0;
+  height: var(--size-size-7);
+  padding: 0 var(--size-space-4);
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:not(.isDisabled) {
+    @include element.focus();
+  }
+
+  &:not(.isActive, .isDisabled):hover {
+    @include element.shadow-active(bottom, var(--color-border-medium));
+  }
+}
+
+.isActive {
+  @include element.shadow-active(bottom);
+}
+
+.isDisabled {
+  cursor: not-allowed;
+}
+
+.isFluid {
+  flex: 1;
+  min-width: max-content;
+}

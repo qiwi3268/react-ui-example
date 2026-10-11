@@ -1,0 +1,16 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`tabsHeader > рендер по умолчанию 1`] = `
+<div
+  class="Flex TabsHeader withBorder"
+  data-testid="tabs-header"
+  tabindex="-1"
+>
+  <div>
+    __CHILDREN__-1
+  </div>
+  <div>
+    __CHILDREN__-2
+  </div>
+</div>
+`;

@@ -1,0 +1,6 @@
+export * from './components/TabContent'
+export * from './components/TabsHeader'
+export * from './components/TabsSkeleton'
+export * from './components/TabTitle'
+export { Tabs } from './Tabs'
+export type { TabsPropsType, TabIdType } from './Tabs.types'

@@ -1,0 +1,91 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`tabs > параметр \`defaultTabId\` устанавливает дефолтный таб 1`] = `
+<div
+  class="Flex TabsHeader withBorder"
+  tabindex="-1"
+>
+  <div
+    class="Flex space2 Tab"
+    style="justify-content: center; align-items: center;"
+    tabindex="0"
+  >
+    <p
+      class="Text typeBody2 colorSecondary"
+    >
+      __TITLE__-1
+    </p>
+  </div>
+  <div
+    class="Flex space2 Tab isActive"
+    style="justify-content: center; align-items: center;"
+    tabindex="0"
+  >
+    <p
+      class="Text typeBody2 colorPrimary"
+    >
+      __TITLE__-2
+    </p>
+  </div>
+</div>
+`;
+
+exports[`tabs > параметр \`isFluid\` расширяет табы на всю ширину контейнера 1`] = `
+<div
+  class="Flex TabsHeader withBorder"
+  tabindex="-1"
+>
+  <div
+    class="Flex space2 Tab isActive isFluid"
+    style="justify-content: center; align-items: center;"
+    tabindex="0"
+  >
+    <p
+      class="Text typeBody2 colorPrimary"
+    >
+      __TITLE__-1
+    </p>
+  </div>
+  <div
+    class="Flex space2 Tab isFluid"
+    style="justify-content: center; align-items: center;"
+    tabindex="0"
+  >
+    <p
+      class="Text typeBody2 colorSecondary"
+    >
+      __TITLE__-2
+    </p>
+  </div>
+</div>
+`;
+
+exports[`tabs > рендер по умолчанию 1`] = `
+<div
+  class="Flex TabsHeader withBorder"
+  tabindex="-1"
+>
+  <div
+    class="Flex space2 Tab isActive"
+    style="justify-content: center; align-items: center;"
+    tabindex="0"
+  >
+    <p
+      class="Text typeBody2 colorPrimary"
+    >
+      __TITLE__-1
+    </p>
+  </div>
+  <div
+    class="Flex space2 Tab"
+    style="justify-content: center; align-items: center;"
+    tabindex="0"
+  >
+    <p
+      class="Text typeBody2 colorSecondary"
+    >
+      __TITLE__-2
+    </p>
+  </div>
+</div>
+`;

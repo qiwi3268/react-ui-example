@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`tabContent > рендер по умолчанию 1`] = `
+<div
+  class=""
+>
+  __CHILDREN__
+</div>
+`;

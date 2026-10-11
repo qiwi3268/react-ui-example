@@ -1,0 +1,57 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`tabsSkeleton > параметр \`count\` задаёт число элементов 1`] = `
+<div
+  aria-hidden="true"
+  class="Flex TabsSkeleton"
+>
+  <div
+    class="Flex TabSkeleton"
+    style="align-items: center;"
+  >
+    <div
+      class="Skeleton Skeleton"
+    />
+  </div>
+</div>
+`;
+
+exports[`tabsSkeleton > рендер по умолчанию 1`] = `
+<div
+  aria-hidden="true"
+  class="Flex TabsSkeleton"
+>
+  <div
+    class="Flex TabSkeleton"
+    style="align-items: center;"
+  >
+    <div
+      class="Skeleton Skeleton"
+    />
+  </div>
+  <div
+    class="Flex TabSkeleton"
+    style="align-items: center;"
+  >
+    <div
+      class="Skeleton Skeleton"
+    />
+  </div>
+  <div
+    class="Flex TabSkeleton"
+    style="align-items: center;"
+  >
+    <div
+      class="Skeleton Skeleton"
+    />
+  </div>
+  <div
+    class="Flex TabSkeleton"
+    style="align-items: center;"
+  >
+    <div
+      class="Skeleton Skeleton"
+    />
+  </div>
+</div>
+`;

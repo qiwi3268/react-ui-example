@@ -1,0 +1,50 @@
+@use "sass:map";
+@use "src/styles/mixins/element";
+@use "src/styles/variables/z-index";
+
+.TabsHeader {
+  flex-shrink: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  will-change: scroll-position;
+
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+  }
+}
+
+.withBorder {
+  @include element.shadow-border(bottom);
+}
+
+.ScrollControl {
+  position: sticky;
+  z-index: map.get(z-index.$layers, "Default");
+  display: flex;
+  flex: 0 0 var(--size-size-6);
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-background-primary);
+}
+
+.isStart {
+  left: 0;
+  margin-right: calc(-1 * (var(--size-size-6) + var(--tabs-scroll-gap, 0px)));
+}
+
+.isEnd {
+  right: 0;
+  order: 1;
+  margin-left: calc(-1 * (var(--size-size-6) + var(--tabs-scroll-gap, 0px)));
+}
+
+.isHidden {
+  visibility: hidden;
+}
+
+.isPointerGuard {
+  // До ухода указателя поглощаем оставшиеся клики серии: под стрелкой может быть кнопка закрытия вкладки
+  opacity: 0;
+}

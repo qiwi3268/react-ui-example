@@ -1,0 +1,16 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`tabTitle > рендер по умолчанию 1`] = `
+<div
+  class="Flex space2 Tab isActive"
+  data-testid="tab-title"
+  style="justify-content: center; align-items: center;"
+  tabindex="0"
+>
+  <p
+    class="Text typeBody2 colorPrimary"
+  >
+    __TITLE__-1
+  </p>
+</div>
+`;

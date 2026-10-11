@@ -1,0 +1,230 @@
+import { Canvas, Controls, Meta, Source, Subtitle, Title } from '@storybook/addon-docs/blocks'
+import * as TabsStories from './Tabs.stories'
+import * as TabsHeaderStories from './components/TabsHeader/TabsHeader.stories'
+import * as TabContentStories from './components/TabContent/TabContent.stories'
+import * as TabTitleStories from './components/TabTitle/TabTitle.stories'
+import * as TabsSkeletonStories from './components/TabsSkeleton/TabsSkeleton.stories'
+import { Changelog } from 'src/__storybook__/components/Changelog'
+import CHANGELOG from './CHANGELOG.md?raw'
+import { SOURCE_CODE_CONTROLLED, SOURCE_CODE_UNCONTROLLED } from './__storybook__/consts'
+
+<Meta of={TabsStories} />
+<Title />
+<Subtitle>Компонент табов</Subtitle>
+
+## Оглавление
+
+- [Поведение](#поведение)
+  - [Структура компонентов](#структура-компонентов)
+  - [Uncontrolled режим](#uncontrolled-режим)
+  - [Controlled режим](#controlled-режим)
+  - [Доступность](#доступность)
+- [Возможности](#возможности)
+- [Когда использовать](#когда-использовать)
+- [Когда не использовать](#когда-не-использовать)
+- [Примеры использования](#примеры-использования)
+- [Свойства](#свойства)
+- [Вложенные компоненты](#вложенные-компоненты)
+
+## Поведение
+
+Компонент табов используется для переключения контента в рамках одной страницы.
+
+<Canvas of={TabsStories.Default} />
+
+Компонент `Tabs` необходим для связи переключателей табов с их основным содержимым. Он может работать в одном из двух режимов:
+
+- **Uncontrolled режим** (с параметром `defaultTabId`) — используется локальный стейт для переключения табов;
+- **Controlled режим** (с параметром `activeTabId`) — стейт управляется извне, необходимо передать `onTabClick`
+
+> Нельзя одновременно передать `defaultTabId` и `activeTabId`.
+
+Активный таб определяется совпадением `activeTabId` с `tabId` компонентов `TabTitle` и `TabContent`. `TabContent` отображает содержимое только активного таба; клик по заголовку таба переключает активный таб и вызывает `onTabClick`.
+
+### Структура компонентов
+
+При построении табов важно соблюдать чёткую структуру компонентов. Компонент `Tabs` является корневым компонентом табов. Компонент `TabsHeader` содержит список
+компонентов `TabTitle`. Компонент `TabContent` содержит основной контент выбранного таба.
+
+<Source code={`
+  <Tabs>
+    <TabsHeader>
+      <TabTitle />
+      <TabTitle />
+      ...
+    </TabsHeader>
+
+    <TabContent />
+    <TabContent />
+    ...
+  </Tabs>
+`} />
+
+### Uncontrolled режим
+
+Используется локальный стейт для переключения табов.
+
+<Canvas of={TabsStories.Default} source={{code: SOURCE_CODE_UNCONTROLLED}} />
+
+### Controlled режим
+
+Стейт управляется извне, необходимо передать `onTabClick`.
+
+<Canvas of={TabsStories.ControlledTabs} source={{code: SOURCE_CODE_CONTROLLED}} />
+
+### Доступность
+
+Для скелетона `TabsSkeleton` добавьте `role='status'` контейнеру элемента. Активная область должна присутствовать в `DOM` до отображения скелетона.
+Когда элемент находится в статусе загрузки, добавьте доступное имя для `div` с ролью `status`.
+
+<Source code={`
+  <div aria-label={isLoading ? 'Загрузка' : undefined} role="status">
+    {isLoading && <TabsSkeleton count={4} />}
+  </div>
+`} />
+
+## Возможности
+
+- Два режима работы: uncontrolled (`defaultTabId`) и controlled (`activeTabId` + `onTabClick`); одновременная передача `defaultTabId` и `activeTabId` исключена на уровне типов;
+- `isFluid` — растягивание табов на всю ширину контейнера;
+- `TabIdType` — идентификаторы табов могут быть строкой или числом;
+- `TabsHeader` — список заголовков табов: `withBorder` (бордер контейнера, по умолчанию `true`), `children` (`TabTitle[]`), `className`, `data-testid`, `ref`; при нехватке места реализована горизонтальная прокрутка заголовков;
+- `TabTitle` — переключатель таба: `tabId`, `title`, `isDisabled`, `icon`, `badgeCounterProps` (бейдж со счётчиком), `onClose` и `closeButtonProps` (закрываемый таб), `data-testid`, `ref`;
+- `TabContent` — контент таба: `tabId`, `withPaddings` (отступы контента), отображается только у активного таба;
+- `TabsSkeleton` — парный скелетон: `count` (количество отображаемых элементов) и `data-testid`
+
+## Когда использовать
+
+- Для переключения между связанными разделами контента в рамках одной страницы, когда контент разделов дополняет друг друга;
+- Для экономии вертикального пространства: вместо отображения всех разделов одновременно покажите один активный;
+- Когда нужно компактно дать доступ к нескольким равноправным видам одного объекта (список / детали / история)
+
+## Когда не использовать
+
+- Для навигации по разделам всего приложения используйте `MainMenu`;
+- Для переходов между страницами (роутинг внутри приложения) используйте ссылки — `Link` / `TextLink` и маршрутизатор приложения;
+- Для последовательного пошагового сценария (мастер) табы не подходят — для шагов используйте пошаговую навигацию с кнопками «Назад» / «Вперёд»
+
+## Примеры использования
+
+<Source code={`import { Tabs, TabsHeader, TabTitle, TabContent, TabsSkeleton } from 'web/react'`} />
+
+```tsx
+import { Tabs, TabsHeader, TabTitle, TabContent, Text } from 'web/react'
+
+<Tabs defaultTabId="tab1">
+  <TabsHeader withBorder>
+    <TabTitle tabId="tab1" title="Первый таб" />
+    <TabTitle tabId="tab2" title="Второй таб" />
+  </TabsHeader>
+  <TabContent withPaddings tabId="tab1">
+    <Text>Контент первого таба</Text>
+  </TabContent>
+  <TabContent withPaddings tabId="tab2">
+    <Text>Контент второго таба</Text>
+  </TabContent>
+</Tabs>
+```
+
+Controlled режим:
+
+```tsx
+import { useState } from 'react'
+import type { TabIdType } from 'web/react'
+
+const [activeTabId, setActiveTabId] = useState<TabIdType>('tab1')
+
+<Tabs activeTabId={activeTabId} onTabClick={setActiveTabId}>
+  <TabsHeader>{tabs.map((tab) => <TabTitle key={tab.tabId} {...tab} />)}</TabsHeader>
+  <TabContent tabId="tab1">
+    <Text>Контент</Text>
+  </TabContent>
+</Tabs>
+```
+
+Табы с иконкой, счётчиком и закрытием:
+
+```tsx
+<Tabs defaultTabId="tab1">
+  <TabsHeader>
+    <TabTitle
+      badgeCounterProps={{ count: 9, kind: 'primary', type: 'success' }}
+      icon="bike"
+      tabId="tab1"
+      title="Заказы"
+    />
+    <TabTitle
+      isDisabled
+      tabId="tab2"
+      title="Недоступный таб"
+    />
+    <TabTitle
+      onClose={(event, tabId) => handleCloseTab(tabId)}
+      tabId="tab3"
+      title="Закрыть меня"
+    />
+  </TabsHeader>
+  <TabContent tabId="tab1">
+    <Text>Контент</Text>
+  </TabContent>
+</Tabs>
+```
+
+При большом количестве табов заголовки прокручиваются:
+
+<Canvas of={TabsStories.WithScroll} />
+
+## Свойства
+
+<Controls of={TabsStories.ControlledTabs} />
+
+## Вложенные компоненты
+
+### Компонент `TabsHeader`
+
+Шапка набора табов — контейнер для компонентов `TabTitle`.
+
+#### Свойства
+
+<Controls of={TabsHeaderStories.WithTabsHeader} />
+
+#### Прокрутка вкладок
+
+Если вкладки не помещаются, по краям шапки появляются стрелки. Они раскрывают скрытые вкладки,
+не меняя выбранную. Когда все вкладки помещаются, стрелок и отступов под них нет.
+Также можно прокручивать список трекпадом или касанием.
+
+Выбранная кликом или сфокусированная вкладка автоматически доскролливается в видимую область.
+Вкладки шире доступного пространства прокручиваются частями.
+При включённом уменьшении движения плавная прокрутка отключается.
+
+<Canvas of={TabsStories.WithScroll} />
+
+### Компонент `TabTitle`
+
+Заголовок таба в шапке набора табов.
+
+#### Свойства
+
+<Controls of={TabTitleStories.WithTabTitle} />
+
+### Компонент `TabContent`
+
+Контент таба: отображается, когда активен таб с указанным `tabId`.
+
+#### Свойства
+
+<Controls of={TabContentStories.WithTabContent} />
+
+### Компонент `TabsSkeleton`
+
+Скелетон шапки набора табов.
+
+<Canvas of={TabsSkeletonStories.WithTabsSkeleton} />
+
+#### Свойства
+
+<Controls of={TabsSkeletonStories.WithTabsSkeleton} />
+
+<Changelog>{CHANGELOG}</Changelog>
+
